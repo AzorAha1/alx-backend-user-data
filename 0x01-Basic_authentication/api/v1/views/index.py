@@ -27,6 +27,6 @@ def stats() -> str:
 
 
 @app_views.route('/unauthorized', strict_slashes=False)
-def raise_abort():
-  """abort raised"""
-  abort(401)
+def raise_unauthorized():
+    """abort raised"""
+    abort(401)
