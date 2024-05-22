@@ -16,7 +16,8 @@ class BasicAuth(Auth):
     Args:
         Auth (_type_): _description_
     """
-    def extract_base64_authorization_header(self, authorization_header: str) -> str:
+    def extract_base64_authorization_header(
+            self, authorization_header: str) -> str:
         """extract base64 authorization header
 
         Args:
