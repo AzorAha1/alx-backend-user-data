@@ -7,8 +7,10 @@ Return: return_description
 """
 
 
+from typing import TypeVar
 from .auth import Auth
 import base64
+from models.user import User
 
 
 class BasicAuth(Auth):
@@ -71,3 +73,23 @@ class BasicAuth(Auth):
             return (None, None)
         usremail, usrpassword = decoded_base64_authorization_header.split(':')
         return (usremail, usrpassword)
+
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str
+            ) -> TypeVar('User'):  # type: ignore
+        """user object from credentials
+
+        Args:
+            self (_type_): _description_
+        """
+        users = User.search({'email': user_email})
+        if not users:
+            return None
+        if user_email is None or not isinstance(user_email, str):
+            return None
+        if user_pwd is None or not isinstance(user_pwd, str):
+            return None
+        user = users[0]
+        if not user.is_valid_password(user_pwd):
+            return None
+        return user
