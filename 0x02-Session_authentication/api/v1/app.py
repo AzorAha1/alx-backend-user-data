@@ -21,6 +21,12 @@ if auth_type == 'basic_auth':
 else:
     auth = Auth()
 
+if auth_type == 'session_auth':
+    from api.v1.auth.session_auth import SessionAuth
+    auth = SessionAuth()
+else:
+    auth = Auth()
+
 
 @app.before_request
 def beforerequest():
