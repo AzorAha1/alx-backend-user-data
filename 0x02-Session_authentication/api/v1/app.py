@@ -33,7 +33,8 @@ def beforerequest():
     """before request"""
     extendedpath = ['/api/v1/status/',
                     '/api/v1/unauthorized/',
-                    '/api/v1/forbidden/'
+                    '/api/v1/forbidden/',
+                    'api/v1/auth_session/login/'
                     ]
     # if auth is None:
     #     return
@@ -46,6 +47,8 @@ def beforerequest():
     request.current_user = auth.current_user(request)
     if auth is not None and auth.require_auth(request.path, extendedpath):
         if auth.authorization_header(request) is None:
+            abort(401)
+        if auth.authorization_header(request) and auth.session_cookie(request):
             abort(401)
         if request.current_user is None:
             abort(403)
