@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """this will be a class"""
 
+from models.user import User
 from .auth import Auth
 from uuid import uuid4
 
@@ -41,3 +42,11 @@ class SessionAuth(Auth):
         if not isinstance(session_id, str):
             return None
         return self.user_id_by_session_id.get(session_id)
+
+    def current_user(self, request=None):
+        """current user"""
+        if request is None:
+            return None
+        sessionid = self.session_cookie(request)
+        getusrid = self.user_id_for_session_id(sessionid)
+        return User.get(getusrid)
