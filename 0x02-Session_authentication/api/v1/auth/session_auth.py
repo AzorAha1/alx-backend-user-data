@@ -10,6 +10,14 @@ class SessionAuth(Auth):
     user_id_by_session_id = {}
 
     def create_session(self, user_id: str = None) -> str:
+        """_summary_
+
+        Args:
+            user_id (str, optional): _description_. Defaults to None.
+
+        Returns:
+            str: _description_
+        """
         if user_id is None:
             return None
         if not isinstance(user_id, str):
