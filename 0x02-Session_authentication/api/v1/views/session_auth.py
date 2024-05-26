@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """this will contain session route"""
+from os import getenv
 from api.v1.views import app_views
-from flask import abort, jsonify, request
+from flask import jsonify, request
 from api.v1.auth.session_auth import SessionAuth
+
 from models.user import User
 
 session_auth = SessionAuth()
@@ -27,7 +29,8 @@ def login():
         return jsonify({'error': 'no user found for this email'}), 404
     if not user.is_valid_password(password):
         return jsonify({'error': 'wrong password'}), 401
-    sessionid = session_auth.create_session(user_id=user.id)
-    response = jsonify(user.to_dict())
-    response.set_cookie('SESSION_NAME', sessionid)
+    from api.v1.app import auth
+    sessionid = auth.create_session(user_id=user.id)
+    response = jsonify(user.to_json())
+    response.set_cookie(getenv('SESSION_NAME'), sessionid)
     return response
