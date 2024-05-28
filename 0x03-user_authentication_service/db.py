@@ -62,11 +62,3 @@ class DB:
                 setattr(user, key, value)
             self._session.commit()
         return None
-
-    def _hash_pasword(self, password):
-        """hash password
-        Keyword arguments:
-        argument -- description
-        Return: return_description
-        """
-        return bcrypt.hashpw(password=password)
