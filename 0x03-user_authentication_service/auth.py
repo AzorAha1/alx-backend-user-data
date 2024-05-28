@@ -36,9 +36,7 @@ class Auth:
         Returns:
             User: _description_
         """
-        session = self._db._session
-
-        user = session.query(User).filter_by(email=email).first()
+        user = self._db.find_user_by(email=email)
         if user is not None:
             raise ValueError(f'User {email} already exists')
         hashpassword = _hash_password(password=password)
