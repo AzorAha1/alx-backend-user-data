@@ -56,15 +56,12 @@ class DB:
         """update user"""
         user = self.find_user_by(id=user_id)
         if user:
-            try:
-                for key, value in kwargs.items():
-                    if not hasattr(user, key):
-                        raise ValueError
-                    setattr(user, key, value)
-                self._session.commit()
-                return None
-            except Exception:
-                return Exception
+            for key, value in kwargs.items():
+                if not hasattr(user, key):
+                    raise ValueError
+                setattr(user, key, value)
+            self._session.commit()
+        return None
 
     def _hash_pasword(self, password):
         """hash password
