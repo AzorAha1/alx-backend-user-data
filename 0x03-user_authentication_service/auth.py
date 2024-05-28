@@ -22,6 +22,18 @@ class Auth:
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
+        """_summary_
+
+        Args:
+            email (str): _description_
+            password (str): _description_
+
+        Raises:
+            ValueError: _description_
+
+        Returns:
+            User: _description_
+        """
         session = self._db._session
 
         user = session.query(User).filter_by(email=email).first()
