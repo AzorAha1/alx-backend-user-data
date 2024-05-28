@@ -63,6 +63,7 @@ class DB:
                 return user
             except ValueError:
                 return ValueError
+        return None
 
     def _hash_pasword(self, password):
         """hash password
