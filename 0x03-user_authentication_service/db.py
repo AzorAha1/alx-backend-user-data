@@ -42,7 +42,7 @@ class DB:
     def find_user_by(self, **kwargs):
         """filter user"""
         try:
-            firstuser =  self.__session.query(User).filter_by(**kwargs).one()
+            firstuser = self.__session.query(User).filter_by(**kwargs).one()
             return firstuser
         except NoResultFound:
             raise NoResultFound
@@ -63,7 +63,6 @@ class DB:
 
     def _hash_pasword(self, password):
         """hash password
-        
         Keyword arguments:
         argument -- description
         Return: return_description
