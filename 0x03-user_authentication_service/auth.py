@@ -3,6 +3,8 @@
 import bcrypt
 from db import DB
 from user import User
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 
 
 def _hash_password(password: str) -> bytes:
@@ -36,9 +38,11 @@ class Auth:
         Returns:
             User: _description_
         """
-        user = self._db.find_user_by(email=email)
-        if user is not None:
+        try:
+            self._db.find_user_by(email=email)
+        except NoResultFound:
+            hashpassword = _hash_password(password=password)
+            newuser = self._db.add_user(email=email, hashed_password=hashpassword)
+            return newuser
+        else:
             raise ValueError(f'User {email} already exists')
-        hashpassword = _hash_password(password=password)
-        newuser = self._db.add_user(email=email, hashed_password=hashpassword)
-        return newuser
