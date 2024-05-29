@@ -13,6 +13,7 @@ def index():
     """index page"""
     return jsonify({'message': 'Bienvenue'})
 
+
 @app.route('/users', methods=['POST'])
 def users():
     """users page"""
