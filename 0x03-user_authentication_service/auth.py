@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """this is the hash password method"""
+import uuid
 import bcrypt
 from db import DB
 from user import User
@@ -15,6 +16,18 @@ def _hash_password(password: str) -> bytes:
     """
     salt = bcrypt.gensalt()
     return bcrypt.hashpw(password=password.encode('utf-8'), salt=salt)
+
+
+def _generate_uuid():
+    """generate uuid
+
+    Raises:
+        ValueError: _description_
+
+    Returns:
+        _type_: _description_
+    """
+    return uuid.uuid4()
 
 
 class Auth:
