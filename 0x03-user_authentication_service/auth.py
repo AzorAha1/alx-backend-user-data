@@ -27,7 +27,7 @@ def _generate_uuid():
     Returns:
         _type_: _description_
     """
-    return uuid.uuid4()
+    return str(uuid.uuid4())
 
 
 class Auth:
