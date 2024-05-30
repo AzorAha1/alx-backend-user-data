@@ -90,7 +90,7 @@ class Auth:
 
     def get_user_from_session_id(self, session_id: str):
         """get user from session id"""
-        user = self._db._session.query(User).filter_by(session_id).first()
+        user = self._db._session.query(User).filter_by(session_id=session_id).first()
         if not user or session_id is None:
             return None
         else:
