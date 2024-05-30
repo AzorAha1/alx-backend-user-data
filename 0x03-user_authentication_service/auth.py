@@ -102,5 +102,6 @@ class Auth:
     def destroy_session(self, user_id: int):
         """destroy session"""
         user = self._db._session.query(User).filter_by(user_id=user_id).first()
-        user.session_id = None
-        self._db._session.commit()
+        if user:
+            user.session_id = None
+            self._db._session.commit()
