@@ -103,3 +103,4 @@ class Auth:
         """destroy session"""
         user = self._db._session.query(User).filter_by(user_id=user_id).first()
         user.session_id = None
+        self._db._session.commit()
