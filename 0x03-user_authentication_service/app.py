@@ -40,7 +40,7 @@ def login() -> str:
     return response
 
 @app.route('/sessions', methods=['DELETE'])
-def logout():
+def logout() -> str:
     """logout page"""
     session_id = request.cookies.get('session_id')
     user = AUTH.get_user_from_session_id(session_id=session_id)
