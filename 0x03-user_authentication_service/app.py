@@ -2,7 +2,7 @@
 """this is a flask app"""
 
 
-from flask import Flask, abort, jsonify, request
+from flask import Flask, abort, jsonify, redirect, request
 from auth import Auth
 app = Flask(__name__)
 AUTH = Auth()
@@ -46,6 +46,7 @@ def logout():
     user = AUTH.get_user_from_session_id(session_id=session_id)
     if user:
         AUTH.destroy_session(user_id=session_id)
+        return redirect('/')
     else:
         abort(403)
 
