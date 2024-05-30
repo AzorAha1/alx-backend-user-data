@@ -33,9 +33,10 @@ def login() -> str:
     password = request.form['password']
     if not AUTH.valid_login(email=email, password=password):
         abort(401)
-    newuserid = AUTH.create_session(email)
-    response = jsonify({{"email": email, "message": "logged in"}})
-    response.set_cookie('session_id', newuserid)
+    else:
+        newuserid = AUTH.create_session(email)
+        response = jsonify({{"email": email, "message": "logged in"}})
+        response.set_cookie('session_id', newuserid)
     return response
 
 
