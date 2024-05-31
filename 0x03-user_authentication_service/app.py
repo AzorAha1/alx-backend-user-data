@@ -4,6 +4,7 @@
 
 from flask import Flask, abort, jsonify, redirect, request
 from auth import Auth
+from user import User
 app = Flask(__name__)
 AUTH = Auth()
 
@@ -61,6 +62,17 @@ def profile():
         return jsonify({'email': user.email}), 200
     else:
         abort(403)
+
+@app.route('/reset_password', methods=['POST'])
+def get_reset_password_token():
+    """get reset password token
+    """
+    email = request.get['email']
+    user = AUTH._db._session.query(User).filter_by(email=email).first()
+    if user is None:
+        abort(403)
+    resettoken = AUTH.get_reset_password_token(email=email)
+    return jsonify({"email": email, "reset_token": resettoken}), 200
 
 
 if __name__ == "__main__":
